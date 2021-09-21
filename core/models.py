@@ -1,7 +1,45 @@
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from extensions import choices
+
+
+class Course(models.Model):
+    title = models.CharField(
+        verbose_name=_('Title'),
+        max_length=256,
+        null=False,
+        unique=True,
+        blank=False
+    )
+    content = RichTextUploadingField(
+        verbose_name=_('Content'),
+        null=False,
+        blank=False
+    )
+    create_time = models.DateTimeField(
+        verbose_name=_('Create Time'),
+        auto_now_add=True,
+        null=False,
+        blank=False,
+        editable=False
+    )
+    last_update_time = models.DateTimeField(
+        verbose_name=_('Last Update Time'),
+        auto_now=True,
+        null=False,
+        blank=False,
+        editable=False
+    )
+
+    def __str__(self):
+        return f'{self.title}'
+
+    class Meta:
+        verbose_name_plural = _("Courses")
+        verbose_name = _("Course")
+        ordering = ['-pk']
 
 
 class Question(models.Model):
