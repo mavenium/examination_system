@@ -1,8 +1,9 @@
-from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from extensions import choices
+
+from ckeditor_uploader.fields import RichTextUploadingField
 
 
 class Course(models.Model):
