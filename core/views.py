@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views import generic
 from django.contrib.auth import views as auth_views
 
@@ -69,8 +70,17 @@ class CourseDetailView(LoginRequiredMixin, generic.DetailView):
             correct_count=correct
         )
 
-        print(wrong, correct, questions_result)
-        self.object = self.get_object()
-        context = super(CourseDetailView, self).get_context_data(**kwargs)
-        return self.render_to_response(context=context)
+        return HttpResponseRedirect(reverse('core:exam_results_detail_view', args=[exam_result.pk]))
 
+
+class ExamResultListView(LoginRequiredMixin, generic.ListView):
+    template_name = 'exam_result_list.html'
+    model = models.ExamResult
+
+    def get_queryset(self):
+        return self.model.objects.filter(user=self.request.user).defer('result')
+
+
+class ExamResultDetailView(LoginRequiredMixin, generic.DetailView):
+    model = models.ExamResult
+    template_name = 'exam_result_detail.html'

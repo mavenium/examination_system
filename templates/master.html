@@ -21,12 +21,19 @@
 
     <div class="collapse navbar-collapse" id="navbar_content">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'core:index' %}">Home</a>
-            </li>
             {% if user.is_authenticated %}
                 <li class="nav-item">
+                    <a class="nav-link" href="{% url 'core:index' %}">{% translate 'Home' %}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'core:exam_results' %}">{% translate 'Exam results' %}</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{% url 'core:logout' %}">{% translate 'Logout' %}</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'core:login' %}">{% translate 'Login' %}</a>
                 </li>
             {% endif %}
         </ul>

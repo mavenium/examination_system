@@ -1,0 +1,42 @@
+{% extends 'master.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+    {% translate 'Exam Results' %}
+{% endblock %}
+
+{% block content %}
+    <div class="col-md-12 mt-4">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">{% translate 'Course' %}</th>
+                <th scope="col">{% translate 'Exam' %}</th>
+                <th scope="col">{% translate 'Wrong Count' %}</th>
+                <th scope="col">{% translate 'Correct Count' %}</th>
+                <th scope="col">{% translate 'Create Time' %}</th>
+                <th scope="col">{% translate 'Actions' %}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for object in object_list %}
+                <tr>
+                    <th scope="row">{{ object.id }}</th>
+                    <td>{{ object.course }}</td>
+                    <td>{{ object.exam }}</td>
+                    <td>{{ object.wrong_count }}</td>
+                    <td>{{ object.correct_count }}</td>
+                    <td>{{ object.create_time }}</td>
+                    <td>
+                        <a class="btn btn-primary" href="{% url 'core:exam_results_detail_view' object.id %}">
+                            {% translate 'Result' %}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

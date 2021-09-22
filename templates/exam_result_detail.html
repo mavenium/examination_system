@@ -1,0 +1,51 @@
+{% extends 'master.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+    {{ object }}
+{% endblock %}
+
+{% block content %}
+    <div class="col-md-12 mt-4">
+        <div class="card">
+            <div class="card-header">
+                {{ object }}
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">{% translate 'Question' %}</th>
+                        <th scope="col">{% translate 'User Answer' %}</th>
+                        <th scope="col">{% translate 'Correct Answer' %}</th>
+                        <th scope="col">{% translate 'Answer is Correct' %}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for object in object.result %}
+                        <tr>
+                            <th scope="row">{{ object.question_id }}</th>
+                            <td>{{ object.question }}</td>
+                            <td>{{ object.user_answer }}</td>
+                            <td>{{ object.correct_answer }}</td>
+                            <td>{{ object.answer_is_correct|yesno:"Yes,No" }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col">
+                        {% translate 'Wrong Count' %} : {{ object.wrong_count }}
+                    </div>
+                    <div class="col">
+                        {% translate 'Correct Count' %} : {{ object.correct_count }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

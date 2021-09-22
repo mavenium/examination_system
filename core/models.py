@@ -247,7 +247,7 @@ class ExamResult(models.Model):
     )
 
     def __str__(self):
-        return f'Exam Result : {self.pk}'
+        return f'Course : {self.course} - Exam : {self.exam}'
 
     class Meta:
         verbose_name_plural = _("Exam Results")
