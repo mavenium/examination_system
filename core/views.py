@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.views import View, generic
 from django.contrib.auth import views as auth_views
 
-from core import forms
+from core import forms, models
 
 
 class LoginView(auth_views.LoginView):
@@ -28,9 +28,6 @@ class LogoutView(LoginRequiredMixin, generic.RedirectView):
         return super().get(request, *args, **kwargs)
 
 
-class IndexView(LoginRequiredMixin, View):
+class IndexView(LoginRequiredMixin, generic.ListView):
     template_name = 'index.html'
-
-    def get(self, request, *args, **kwargs):
-        context = {}
-        return render(request, self.template_name, context=context)
+    model = models.Course
