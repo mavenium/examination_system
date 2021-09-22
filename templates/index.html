@@ -13,7 +13,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ object.title }}</h5>
                     <p class="card-text">{{ object.description }}</p>
-                    <a href="#" class="btn btn-primary">
+                    <a href="{% url 'core:course_detail_view' object.id %}" class="btn btn-primary">
                         {% translate 'Go To Course' %}
                     </a>
                 </div>
