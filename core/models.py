@@ -14,8 +14,21 @@ class Course(models.Model):
         unique=True,
         blank=False
     )
+    description = models.TextField(
+        verbose_name=_('Description'),
+        null=False,
+        blank=False
+    )
     content = RichTextUploadingField(
         verbose_name=_('Content'),
+        null=False,
+        blank=False
+    )
+    exam = models.ForeignKey(
+        'Exam',
+        verbose_name=_('Exam'),
+        on_delete=models.PROTECT,
+        related_name='course_exam',
         null=False,
         blank=False
     )
