@@ -44,11 +44,13 @@ class LogoutView(LoginRequiredMixin, generic.RedirectView):
 
 
 class IndexView(LoginRequiredMixin, generic.ListView):
+    """ Index viw class to show courses """
     template_name = 'index.html'
     model = models.Course
 
 
 class CourseDetailView(LoginRequiredMixin, generic.DetailView):
+    """ Course detail viw class to show course detail and collect user answers """
     model = models.Course
     template_name = 'course_detail.html'
 
@@ -88,6 +90,7 @@ class CourseDetailView(LoginRequiredMixin, generic.DetailView):
 
 
 class ExamResultListView(LoginRequiredMixin, generic.ListView):
+    """ Exam result viw class to show exam results """
     template_name = 'exam_result_list.html'
     model = models.ExamResult
 
@@ -96,5 +99,6 @@ class ExamResultListView(LoginRequiredMixin, generic.ListView):
 
 
 class ExamResultDetailView(LoginRequiredMixin, generic.DetailView):
+    """ Course detail detail viw class to show exam result detail """
     model = models.ExamResult
     template_name = 'exam_result_detail.html'
