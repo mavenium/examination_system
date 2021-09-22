@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 from pathlib import Path
+from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'ckeditor',
+    'crispy_forms',
     'core.apps.CoreConfig',
 ]
 
@@ -141,4 +143,17 @@ CKEDITOR_CONFIGS = {
         'toolbar': 'full',
         'width': '100%',
     },
+}
+
+# Auth Settings
+LOGIN_URL = 'core:login'
+LOGIN_REDIRECT_URL = 'core:index'
+LOGOUT_REDIRECT_URL = 'core:login'
+
+# CRISPY Form
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# Message Tags Classes
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
 }
