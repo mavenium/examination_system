@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -192,4 +193,63 @@ class Exam(models.Model):
     class Meta:
         verbose_name_plural = _("Exams")
         verbose_name = _("Exam")
+        ordering = ['-pk']
+
+
+class ExamResult(models.Model):
+    user = models.ForeignKey(
+        User,
+        verbose_name=_('User'),
+        on_delete=models.PROTECT,
+        related_name='result_exam_user',
+        null=False,
+        blank=False
+    )
+    exam = models.ForeignKey(
+        'Exam',
+        verbose_name=_('Exam'),
+        on_delete=models.PROTECT,
+        related_name='result_exam_exam',
+        null=False,
+        blank=False
+    )
+    course = models.ForeignKey(
+        'Course',
+        verbose_name=_('Course'),
+        on_delete=models.PROTECT,
+        related_name='result_exam_exam',
+        null=False,
+        blank=False
+    )
+    result = models.JSONField(
+        verbose_name=_('Result'),
+        null=False,
+        blank=False
+    )
+    wrong_count = models.PositiveSmallIntegerField(
+        verbose_name=_('Wrong Count'),
+        default=0,
+        null=False,
+        blank=False
+    )
+    correct_count = models.PositiveSmallIntegerField(
+        verbose_name=_('Correct Count'),
+        default=0,
+        null=False,
+        blank=False
+    )
+    create_time = models.DateTimeField(
+        verbose_name=_('Create Time'),
+        auto_now_add=True,
+        null=False,
+        blank=False,
+        editable=False
+    )
+
+    def __str__(self):
+        return f'Exam Result : {self.pk}'
+
+    class Meta:
+        verbose_name_plural = _("Exam Results")
+        verbose_name = _("Exam Result")
         ordering = ['-pk']
