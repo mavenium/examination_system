@@ -4,6 +4,7 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy, reverse
 from django.views import generic
 from django.contrib.auth import views as auth_views
+from django.contrib.auth.forms import UserCreationForm
 
 from core import forms, models
 
@@ -18,6 +19,19 @@ class LoginView(auth_views.LoginView):
             return redirect('core:index')
         else:
             return super(LoginView, self).get(request, *args, **kwargs)
+
+
+class UserCreationView(generic.CreateView):
+    """ User Creation viw class """
+    form_class = UserCreationForm
+    success_url = reverse_lazy('core:login')
+    template_name = 'auth/signup.html'
+
+    def get(self, request, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            return redirect('core:index')
+        else:
+            return super(UserCreationView, self).get(request, *args, **kwargs)
 
 
 class LogoutView(LoginRequiredMixin, generic.RedirectView):
